@@ -1,3 +1,35 @@
+/*
+To Dos
+-------------------------
+
+Commands: Attack/Use, Move
+
+Map:
+x		x	x
+x	x	x	x
+		S	
+
+
+1	2	3	4
+5	6	7	8
+9	10	11	12
+
+Room Legend
+[N, E, S, W]
+
+Basic idea for movement. Each room gets an ID that's a number 1-12 laid out
+according to the map above. Each room gets an array called room legend that gives
+an integer relating to a cardinal direction.
+
+In our example, the starting room is room 11. To go north you would add -4.
+Thus, the first item in the room legend array is -4 which relates to north.
+To make a room not exist, the direction gets a negative value equal to the roomID resulting in 0.
+0 = does not exist in our movement function.
+
+
+
+*/
+
 $(document).ready(function() {
 
 	//Inventory
@@ -20,17 +52,30 @@ $(document).ready(function() {
 		"A rusted iron bracket holds a single torch."
 		);
 	//Rooms
-	function Room(shortDesc, lDesc, things) {
+	function Room(roomName,shortDesc, lDesc, things, roomID, roomLegend) {
+		this.roomName = roomName;
 		this.shortDesc = shortDesc;
 		this.lDesc = lDesc;
 		this.lDescModified = lDesc;
 		this.things = things;
+		this.roomID = roomID;
+		this.roomLegend = roomLegend;
 	}
 
 	var cave = new Room(
+		"cave",
 		"a dark, dank cave.", 
-		"This cave is drafty, and the walls slimy.",
-		[pebble, torch]
+		"This cave is drafty, and the walls slimy. There is barely enough light to see.",
+		[pebble, torch],
+		11,
+		[-4,-11,-11,-11]
+		);
+	var hall = new Room(
+		"hall",
+		"a long stone tunnel.",
+		"Hewn stone walls extend north creating a claustrophobic hall that culminates in a set of double-doors.",
+		7,
+		[-4,1,] // to-do
 		);
 	
 	var currentRoom = cave;
@@ -128,4 +173,3 @@ $(document).ready(function() {
 	}
 
 });
-
