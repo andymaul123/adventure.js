@@ -16,15 +16,15 @@ x	x	x	x
 
 Room Legend
 [N, E, S, W]
+[-4, -1, +4, +1]
 
 Basic idea for movement. Each room gets an ID that's a number 1-12 laid out
-according to the map above. Each room gets an array called room legend that gives
-an integer relating to a cardinal direction.
+according to the map above. The map legend maps the directions north, east, south, and west to
+integers -4, -1, +4, and +1 to "move" to the cell.
 
-In our example, the starting room is room 11. To go north you would add -4.
-Thus, the first item in the room legend array is -4 which relates to north.
-To make a room not exist, the direction gets a negative value equal to the roomID resulting in 0.
-0 = does not exist in our movement function.
+In our example, the starting room is room 11. North of room 11 is room 7, thus the -4 assigned to North would take us there.
+
+If a cell doesn't contain a room it is assigned a 0 integer that is checked before movement is calculated.
 
 
 
@@ -52,14 +52,13 @@ $(document).ready(function() {
 		"A rusted iron bracket holds a single torch."
 		);
 	//Rooms
-	function Room(roomName,shortDesc, lDesc, things, roomID, roomLegend) {
+	function Room(roomName,shortDesc, lDesc, things, roomID) {
 		this.roomName = roomName;
 		this.shortDesc = shortDesc;
 		this.lDesc = lDesc;
 		this.lDescModified = lDesc;
 		this.things = things;
 		this.roomID = roomID;
-		this.roomLegend = roomLegend;
 	}
 
 	var cave = new Room(
@@ -67,16 +66,17 @@ $(document).ready(function() {
 		"a dark, dank cave.", 
 		"This cave is drafty, and the walls slimy. There is barely enough light to see.",
 		[pebble, torch],
-		11,
-		[-4,-11,-11,-11]
+		11
 		);
 	var hall = new Room(
 		"hall",
 		"a long stone tunnel.",
 		"Hewn stone walls extend north creating a claustrophobic hall that culminates in a set of double-doors.",
-		7,
-		[-4,1,] // to-do
+		["placeholder"],
+		7
 		);
+
+	var allRooms = [cave, hall];
 	
 	var currentRoom = cave;
 	
@@ -104,10 +104,15 @@ $(document).ready(function() {
 	// Input Delegation
 	function onSubmit() {
 		var enteredInputs = $('input').val().split(" ");
+		for (var i = 0; i < enteredInputs.length; i++) {
+			enteredInputs[i] = enteredInputs[i].toLowerCase();
+		};
+		console.log(enteredInputs);
 		var command = enteredInputs[0];
 		var modifier = enteredInputs[1];
 
 		if ($.inArray( command, commandArray) > -1) {
+			$('.message').text("");
 			window[command](modifier);
 		}
 		else {
@@ -115,6 +120,10 @@ $(document).ready(function() {
 		}
 		$('input').val("");
 	}
+/*
+Command Functions
+================================================================================
+*/
 	// Look Command function
 	window.look = function(optionalObject) {
 		if(optionalObject) {
@@ -139,6 +148,7 @@ $(document).ready(function() {
 			$('.message').text(currentRoom.lDescModified);
 		}
 	}
+
 	// Take Command function
 	window.take = function(optionalObject) {
 		if(optionalObject) {
@@ -158,6 +168,7 @@ $(document).ready(function() {
 			$('.message').text("Take what?");
 		}
 	}
+
 	// Inventory Command function
 	window.inventory = function() {
 		if(backpack.length > 0) {
@@ -169,6 +180,51 @@ $(document).ready(function() {
 		}
 		else {
 			$('.message').text("Your inventory is empty.");
+		}
+	}
+
+	// Move Command function
+	window.move = function(requiredObject) {
+		if(requiredObject) {
+			var convertedDirection;
+			switch(requiredObject) {
+			    case "north":
+			        convertedDirection = -4;
+			        break;
+			    case "east":
+			        convertedDirection = 1;
+			        break;
+			    case "south":
+			        convertedDirection = 4;
+			        break;
+			    case "west":
+			        convertedDirection = -1;
+			        break;
+			    default:
+			        $('.message').text("That's not a direction.");
+			        return
+			}
+			var moveMath = currentRoom.roomID + convertedDirection;
+			if (moveMath == currentRoom.roomID) {
+				$('.message').text("You can't move that way.");
+			}
+			else {
+				var isThereARoom = 0;
+				for (var i = 0; i < allRooms.length; i++) {
+					if(allRooms[i].roomID == moveMath) {
+						currentRoom = allRooms[i];
+						isThereARoom++;
+						$('.message').text("You are in " + currentRoom.shortDesc);
+					}
+				};
+				console.log(isThereARoom);
+				if(isThereARoom == 0) {
+					$('.message').text("You can't go that way.");
+				}
+			}
+		}
+		else {
+			$('.message').text("Move where?");
 		}
 	}
 
