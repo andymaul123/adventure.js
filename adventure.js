@@ -32,11 +32,17 @@ If a cell doesn't contain a room it is assigned a 0 integer that is checked befo
 
 $(document).ready(function() {
 
-	//Inventory
+/*
+Global Player Variables
+================================================================================
+*/
 	var backpack = [];
 	var playerHasLight = false;
 
-	// Things
+/*
+Items Galore!
+================================================================================
+*/
 	function Item(itemName, itemDesc, itemInRoomDesc) {
 		this.itemName = itemName;
 		this.itemDesc = itemDesc;
@@ -52,7 +58,10 @@ $(document).ready(function() {
 		"A wooden haft with oil soaked rags wrapped around the top. It would readily burn.",
 		"A rusted iron bracket holds a single torch."
 		);
-	//Rooms
+/*
+Rooms n' More
+================================================================================
+*/
 	function Room(roomName,shortDesc, lDesc, things, roomID, pitchBlack) {
 		this.roomName = roomName;
 		this.shortDesc = shortDesc;
@@ -82,52 +91,23 @@ $(document).ready(function() {
 
 	var allRooms = [cave, hall];
 	
-	var currentRoom = cave;
-	
-	// Room Update Function
 	function updateRoomDesc() {
 		currentRoom.lDescModified =  currentRoom.lDesc;
 		for (var i = 0; i < currentRoom.things.length; i++) {
 			currentRoom.lDescModified = currentRoom.lDescModified + " " + currentRoom.things[i].itemInRoomDesc;
 		};
 	}
+
+	var currentRoom = cave;
 	updateRoomDesc();
 
 	$('.message').text("You are in " + currentRoom.shortDesc);
 
-	// Array of Commands
-	var commandArray = ["look", "move", "take", "inventory"];
-
-	//Input Controls
-	$(document).keypress(function(e){
-		if(e.which == 13) {
-			onSubmit();
-			return false;
-		}
-	});
-	// Input Delegation
-	function onSubmit() {
-		var enteredInputs = $('input').val().split(" ");
-		for (var i = 0; i < enteredInputs.length; i++) {
-			enteredInputs[i] = enteredInputs[i].toLowerCase();
-		};
-		console.log(enteredInputs);
-		var command = enteredInputs[0];
-		var modifier = enteredInputs[1];
-
-		if ($.inArray( command, commandArray) > -1) {
-			$('.message').text("");
-			window[command](modifier);
-		}
-		else {
-			$('.message').text("I don't understand that command.");
-		}
-		$('input').val("");
-	}
 /*
 Command Functions
 ================================================================================
 */
+	var commandArray = ["look", "move", "take", "inventory"];
 	// Look Command function
 	window.look = function(optionalObject) {
 
@@ -236,7 +216,6 @@ Command Functions
 						}
 					}
 				};
-				console.log(isThereARoom);
 				if(isThereARoom == 0) {
 					$('.message').text("You can't go that way.");
 				}
@@ -246,5 +225,34 @@ Command Functions
 			$('.message').text("Move where?");
 		}
 	}
+/*
+Inputs
+================================================================================
+*/
+	$(document).keypress(function(e){
+		if(e.which == 13) {
+			onSubmit();
+			return false;
+		}
+	});
+
+	function onSubmit() {
+		var enteredInputs = $('input').val().split(" ");
+		for (var i = 0; i < enteredInputs.length; i++) {
+			enteredInputs[i] = enteredInputs[i].toLowerCase();
+		};
+		var command = enteredInputs[0];
+		var modifier = enteredInputs[1];
+
+		if ($.inArray( command, commandArray) > -1) {
+			$('.message').text("");
+			window[command](modifier);
+		}
+		else {
+			$('.message').text("I don't understand that command.");
+		}
+		$('input').val("");
+	}
+
 
 });
