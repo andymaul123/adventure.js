@@ -34,6 +34,7 @@ $(document).ready(function() {
 
 	//Inventory
 	var backpack = [];
+	var playerHasLight = false;
 
 	// Things
 	function Item(itemName, itemDesc, itemInRoomDesc) {
@@ -52,13 +53,14 @@ $(document).ready(function() {
 		"A rusted iron bracket holds a single torch."
 		);
 	//Rooms
-	function Room(roomName,shortDesc, lDesc, things, roomID) {
+	function Room(roomName,shortDesc, lDesc, things, roomID, pitchBlack) {
 		this.roomName = roomName;
 		this.shortDesc = shortDesc;
 		this.lDesc = lDesc;
 		this.lDescModified = lDesc;
 		this.things = things;
 		this.roomID = roomID;
+		this.pitchBlack = pitchBlack;
 	}
 
 	var cave = new Room(
@@ -66,14 +68,16 @@ $(document).ready(function() {
 		"a dark, dank cave.", 
 		"This cave is drafty, and the walls slimy. There is barely enough light to see.",
 		[pebble, torch],
-		11
+		11,
+		false
 		);
 	var hall = new Room(
 		"hall",
 		"a long stone tunnel.",
 		"Hewn stone walls extend north creating a claustrophobic hall that culminates in a set of double-doors.",
 		["placeholder"],
-		7
+		7,
+		true
 		);
 
 	var allRooms = [cave, hall];
@@ -126,26 +130,33 @@ Command Functions
 */
 	// Look Command function
 	window.look = function(optionalObject) {
-		if(optionalObject) {
-			var isAThingCounter = false;
-			for (var i = 0; i < currentRoom.things.length; i++) {
-				if (currentRoom.things[i].itemName == optionalObject) {
-					$('.message').text(currentRoom.things[i].itemDesc);
-					isAThingCounter = true;
-				}
-			};
-			for (var i = 0; i < backpack.length; i++) {
-				if (backpack[i].itemName == optionalObject) {
-					$('.message').text(backpack[i].itemDesc + " It is in your backpack.");
-					isAThingCounter = true;
-				}
-			};
-			if (isAThingCounter == false) {
-				$('.message').text("Not much to see here.");
-			}
+
+
+		if (currentRoom.pitchBlack && playerHasLight == false){
+			$('.message').text("It is too dark to see. Get some light first.");
 		}
 		else {
-			$('.message').text(currentRoom.lDescModified);
+			if(optionalObject) {
+				var isAThingCounter = false;
+				for (var i = 0; i < currentRoom.things.length; i++) {
+					if (currentRoom.things[i].itemName == optionalObject) {
+						$('.message').text(currentRoom.things[i].itemDesc);
+						isAThingCounter = true;
+					}
+				};
+				for (var i = 0; i < backpack.length; i++) {
+					if (backpack[i].itemName == optionalObject) {
+						$('.message').text(backpack[i].itemDesc + " It is in your backpack.");
+						isAThingCounter = true;
+					}
+				};
+				if (isAThingCounter == false) {
+					$('.message').text("Not much to see here.");
+				}
+			}
+			else {
+				$('.message').text(currentRoom.lDescModified);
+			}
 		}
 	}
 
@@ -214,7 +225,15 @@ Command Functions
 					if(allRooms[i].roomID == moveMath) {
 						currentRoom = allRooms[i];
 						isThereARoom++;
-						$('.message').text("You are in " + currentRoom.shortDesc);
+						if (currentRoom.pitchBlack && playerHasLight) {
+							$('.message').text("You are in " + currentRoom.shortDesc);
+						}
+						else if (currentRoom.pitchBlack && playerHasLight == false) {
+							$('.message').text("The room is pitch black.");
+						}
+						else {
+							$('.message').text("You are in " + currentRoom.shortDesc);
+						}
 					}
 				};
 				console.log(isThereARoom);
