@@ -53,11 +53,18 @@ Items Galore!
 		"A small, smooth pebble.",
 		"On the floor there is a pebble."
 		);
+	pebble.activate = function() {
+		$('.message').text("It's a pebble. What would you expect to happen?");
+	}
 	var torch = new Item(
 		"torch",
 		"A wooden haft with oil soaked rags wrapped around the top. It would readily burn.",
 		"A rusted iron bracket holds a single torch."
 		);
+	torch.activate = function() {
+		playerHasLight = true;
+		$('.message').text("With a few sparks from your flint and steel the torch catches and roars to life.");
+	}
 /*
 Rooms n' More
 ================================================================================
@@ -107,11 +114,9 @@ Rooms n' More
 Command Functions
 ================================================================================
 */
-	var commandArray = ["look", "move", "take", "inventory"];
+	var commandArray = ["look", "move", "take", "inventory", "use"];
 	// Look Command function
 	window.look = function(optionalObject) {
-
-
 		if (currentRoom.pitchBlack && playerHasLight == false){
 			$('.message').text("It is too dark to see. Get some light first.");
 		}
@@ -223,6 +228,24 @@ Command Functions
 		}
 		else {
 			$('.message').text("Move where?");
+		}
+	}
+	// Use Command
+	window.use = function(requiredObject) {
+		if (requiredObject) {
+			var canUse = false;
+			for (var i = 0; i < backpack.length; i++) {
+				if (backpack[i].itemName == requiredObject) {
+					backpack[i].activate();
+					canUse = true;
+				}
+			};
+			if (canUse == false) {
+				$('.message').text("You don't have a " + requiredObject + " to use.");
+			}
+		}
+		else {
+			$('.message').text("Use what?");
 		}
 	}
 /*
