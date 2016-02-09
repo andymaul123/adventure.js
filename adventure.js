@@ -32,6 +32,9 @@ If a cell doesn't contain a room it is assigned a 0 integer that is checked befo
 
 $(document).ready(function() {
 
+/* Order Matters. Always load items that are required by other items first */
+requirejs(['items','rooms']);
+
 /*
 Global Player Variables
 ================================================================================
