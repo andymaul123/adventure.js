@@ -33,19 +33,13 @@ If a cell doesn't contain a room it is assigned a 0 integer that is checked befo
 $(document).ready(function() {
 
 /* Order Matters. Always load items that are required by other items first */
-requirejs(['items','rooms']);
+requirejs(['scripts/player','scripts/items','scripts/rooms']);
 
-/*
-Global Player Variables
-================================================================================
-*/
-	var backpack = [];
-	var playerHasLight = false;
+/* Player variables have moved to player.js */
 
 /* Items have moved to items.js */
 
 /* Rooms have moved to rooms.js */
-
 
 /*
 Command Functions
