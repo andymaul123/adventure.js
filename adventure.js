@@ -88,7 +88,7 @@ Items Galore!
 	var doubleDoors = new Item(
 		"doors",
 		"A set of double doors.",
-		"Massive double doors made from wood and reinforced with iron. They are locked.",
+		"Massive double doors made from wood and reinforced with iron.",
 		false
 		);
 	doubleDoors.locked = true;
@@ -165,7 +165,17 @@ Command Functions
 				var isAThingCounter = false;
 				for (var i = 0; i < currentRoom.things.length; i++) {
 					if (currentRoom.things[i].itemName == optionalObject) {
-						$('.message').text(currentRoom.things[i].itemDesc);
+						if(currentRoom.things[i].hasOwnProperty('locked')) {
+							if(currentRoom.things[i].locked) {
+								$('.message').text(currentRoom.things[i].itemDesc + " It is locked.");	
+							}
+							else {
+								$('.message').text(currentRoom.things[i].itemDesc + " It is unlocked.");
+							}
+						}
+						else {
+							$('.message').text(currentRoom.things[i].itemDesc);
+						}
 						isAThingCounter = true;
 					}
 				};
@@ -261,6 +271,7 @@ Command Functions
 						}
 						else if (currentRoom.pitchBlack && playerHasLight == false) {
 							$('.message').text("The room is pitch black.");
+							updateRoomDesc();
 						}
 						else {
 							$('.message').text("You are in " + currentRoom.shortDesc);
