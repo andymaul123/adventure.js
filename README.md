@@ -1,3 +1,3 @@
 # adventure.js
 
-A simple js adventure
+A simple text adventure written in js 
