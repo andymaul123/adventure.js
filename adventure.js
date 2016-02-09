@@ -30,47 +30,64 @@ If a cell doesn't contain a room it is assigned a 0 integer that is checked befo
 
 */
 
-$(document).ready(function() {
-
-/* Order Matters. Always load items that are required by other items first */
-requirejs(['scripts/player','scripts/items','scripts/rooms', 'scripts/commands']);
-
-/* Player variables have moved to player.js */
-
-/* Items have moved to items.js */
-
-/* Rooms have moved to rooms.js */
-
-/* Commands have moved to commands.js */
+var currentRoom = null;
 
 /*
 Inputs
 ================================================================================
 */
-	$(document).keypress(function(e){
-		if(e.which == 13) {
-			onSubmit();
-			return false;
-		}
-	});
+function catchInput(){
+    $(document).keypress(function(e){
+            if(e.which == 13) {
+                onSubmit();
+                return false;
+            }
+        });
 
-	function onSubmit() {
-		var enteredInputs = $('input').val().split(" ");
-		for (var i = 0; i < enteredInputs.length; i++) {
-			enteredInputs[i] = enteredInputs[i].toLowerCase();
-		};
-		var command = enteredInputs[0];
-		var modifier = enteredInputs[1];
+    function onSubmit() {
+        var enteredInputs = $('input').val().split(" ");
+        for (var i = 0; i < enteredInputs.length; i++) {
+            enteredInputs[i] = enteredInputs[i].toLowerCase();
+        };
+        var command = enteredInputs[0];
+        var modifier = enteredInputs[1];
 
-		if ($.inArray( command, commandArray) > -1) {
-			$('.message').text("");
-			window[command](modifier);
-		}
-		else {
-			$('.message').text("I don't understand that command.");
-		}
-		$('input').val("");
-	}
+        if ($.inArray( command, commandArray) > -1) {
+            $('.message').text("");
+            window[command](modifier);
+        }
+        else {
+            $('.message').text("I don't understand that command.");
+        }
+        $('input').val("");
+    }
+}
 
+function goOnAdventure() {
+    //Set first room & update description
+    currentRoom = cave;
+    updateRoomDesc();
 
+    //Intro Text
+    $('.message').text("You are in " + currentRoom.shortDesc);
+
+    catchInput();
+}
+
+$(document).ready(function() {
+
+    /* Load additional js files here
+    Order matters. Load scripts that are required by other scripts first (items before rooms etc)
+     */
+    requirejs(['scripts/player','scripts/items','scripts/rooms', 'scripts/commands'], function() {
+        //currentRoom = cave;
+        //console.log("HI cave", cave);
+        goOnAdventure();
+    });
+
+    /* Player variables, Items, Rooms, Commands have all been moved to their respective .js files */
 });
+
+
+
+
