@@ -15,7 +15,7 @@ var cave = new Room(
     [pebble, torch],
     11,
     false
-);
+    );
 var hall = new Room(
     "hall",
     "a long stone tunnel.",
@@ -23,7 +23,7 @@ var hall = new Room(
     [doubleDoors, key],
     7,
     true
-);
+    );
 
 var allRooms = [cave, hall];
 
@@ -34,7 +34,3 @@ function updateRoomDesc() {
     };
 }
 
-var currentRoom = cave;
-updateRoomDesc();
-
-$('.message').text("You are in " + currentRoom.shortDesc);

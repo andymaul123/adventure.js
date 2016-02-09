@@ -12,6 +12,7 @@ var pebble = new Item(
     "On the floor there is a pebble.",
     true
 );
+
 pebble.activate = function() {
     $('.message').text("It's a pebble. What would you expect to happen?");
 }
@@ -22,6 +23,7 @@ var torch = new Item(
     "A rusted iron bracket holds a single torch.",
     true
 );
+
 torch.activate = function() {
     playerHasLight = true;
     $('.message').text("With a few sparks from your flint and steel the torch catches and roars to life.");
@@ -34,6 +36,7 @@ var key = new Item(
     "A small key twinkles in the flickering light of your torch.",
     true
 );
+
 key.activate = function() {
     if (currentRoom == hall){
         doubleDoors.locked = false;
@@ -47,7 +50,7 @@ key.activate = function() {
 var doubleDoors = new Item(
     "doors",
     "A set of double doors.",
-    "Massive double doors made from wood and reinforced with iron. They are locked.",
+    "Massive double doors made from wood and reinforced with iron.",
     false
 );
 
