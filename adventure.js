@@ -74,24 +74,6 @@ function goOnAdventure() {
     catchInput();
 }
 
-function testThings(){
-    var gandalf = new Wizard(1000);
-    console.log("Gandalf is a person: ", gandalf instanceof Person);
-    console.log("Gandalf is a wizard: ", gandalf instanceof Wizard);
-    console.log("Gandalf canBeIdentifiedByName: ", gandalf instanceof canBeIdentifiedByName);
-    gandalf.name = "Gandalf";
-    console.log("Gandalf has a name, it is", gandalf.name);
-}
-
-function testMixins(){
-    var bob = new Person();
-    bob.printName();
-    bob.printDescription();
-    console.log("Bob has a bunch of health: ", bob.currentHealth);
-    bob.subtractHealth(5);
-    bob.subtractHealth(5);
-}
-
 $(document).ready(function() {
 
     /* Load additional js files here
@@ -99,9 +81,7 @@ $(document).ready(function() {
      */
     requirejs(['scripts/player','scripts/utils','scripts/items','scripts/rooms', 'scripts/commands'], function() {
 
-        //goOnAdventure();
-
-        testMixins();
+        goOnAdventure();
     });
 
     /* Player variables, Items, Rooms, Commands have all been moved to their respective .js files */
