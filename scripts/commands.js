@@ -1,4 +1,4 @@
-var commandArray = ["look", "move", "take", "inventory", "use"];
+var commandArray = ["look", "move", "take", "inventory", "use", "attack"];
 // Look Command function
 window.look = function(optionalObject) {
     if (currentRoom.pitchBlack && playerHasLight == false){

@@ -28,6 +28,15 @@ torch.activate = function() {
     playerHasLight = true;
     $('.message').text("With a few sparks from your flint and steel the torch catches and roars to life.");
 }
+var sword = new Item(
+    "sword",
+    "A long steel blade that still holds an edge, despite its obvious age.",
+    "On the wall is a wooden plaque with a sword fastened horizontally.",
+    true
+    );
+sword.activate = function() {
+    //To-Do
+}
 
 //Room 2 Hall Items
 var key = new Item(
