@@ -29,6 +29,17 @@ window.look = function(optionalObject) {
                     isAThingCounter = true;
                 }
             };
+            for (var i = 0; i < currentRoom.enemies.length; i++) {
+                if (currentRoom.enemies[i].monsterName == optionalObject) {
+                    if(currentRoom.enemies[i].monsterDefense > 0) {
+                        $('.message').text(currentRoom.enemies[i].monsterDesc);
+                    }
+                    else {
+                        $('.message').text(currentRoom.enemies[i].monsterDeadDesc);
+                    }
+                    isAThingCounter = true;
+                }
+            };
             if (isAThingCounter == false) {
                 $('.message').text("Not much to see here.");
             }
