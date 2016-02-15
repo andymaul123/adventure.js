@@ -91,15 +91,19 @@ window.move = function(requiredObject) {
         var convertedDirection;
         switch(requiredObject) {
             case "north":
+            case "n":
                 convertedDirection = -4;
                 break;
             case "east":
+            case "e":
                 convertedDirection = 1;
                 break;
             case "south":
+            case "s":
                 convertedDirection = 4;
                 break;
             case "west":
+            case "w":
                 convertedDirection = -1;
                 break;
             default:
