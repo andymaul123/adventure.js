@@ -1,8 +1,12 @@
 function Item(itemName, itemDesc, itemInRoomDesc, canBeTaken) {
-    this.itemName = itemName;
-    this.itemDesc = itemDesc;
-    this.itemInRoomDesc = itemInRoomDesc;
-    this.canBeTaken = canBeTaken;
+    var itemState = {
+        name: itemName,
+        itemDesc: itemDesc,
+        itemInRoomDesc: itemInRoomDesc,
+        canBeTaken: canBeTaken
+    };
+
+    return Object.assign(itemState,canBeIdentifiedByName(itemState));
 }
 
 // Room 1 Cave Items
