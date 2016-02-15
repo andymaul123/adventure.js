@@ -1,3 +1,5 @@
+"use strict";
+
 var commandArray = ["look", "move", "take", "inventory", "use", "attack"];
 // Look Command function
 window.look = function(optionalObject) {
@@ -31,12 +33,7 @@ window.look = function(optionalObject) {
             };
             for (var i = 0; i < currentRoom.enemies.length; i++) {
                 if (currentRoom.enemies[i] == optionalObject) {
-                    if(currentRoom.enemies[i].monsterDefense > 0) {
-                        $('.message').text(currentRoom.enemies[i].monsterDesc);
-                    }
-                    else {
-                        $('.message').text(currentRoom.enemies[i].monsterDeadDesc);
-                    }
+                    $('.message').text(currentRoom.enemies[i].description);
                     isAThingCounter = true;
                 }
             };

@@ -48,7 +48,7 @@ sword.activate = function() {
     if(currentRoom.enemies.length >= 1) {
         for (var i = 0; i < currentRoom.enemies.length; i++) {
             if(currentRoom.enemies[i].monsterDefense > 0) {
-                currentRoom.enemies[i].monsterDefense = currentRoom.enemies[i].monsterDefense - 5;
+                currentRoom.enemies[i].monsterDefense -= 5;
                 console.log(currentRoom.enemies[i].monsterDefense);
                  if(currentRoom.enemies[i].monsterDefense <= 0) {
                     $('.message').text("With a final swing the " + currentRoom.enemies[i] + " falls to the floor, dead.");

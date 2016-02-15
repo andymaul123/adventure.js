@@ -1,3 +1,5 @@
+"use strict";
+
 function Room(roomName,shortDesc, lDesc, things, roomID, pitchBlack, enemies) {
     var roomState = {
         name: roomName,
@@ -19,13 +21,12 @@ function Room(roomName,shortDesc, lDesc, things, roomID, pitchBlack, enemies) {
                         tempDescription +=  " " + enemies[i].monsterInRoomDesc;
                     }
                     else {
-                       tempDescription += " " + enemies[i].monsterDeadDesc;
+                       tempDescription += " " + enemies[i].deadDesc;
                     }
                 }
             return tempDescription;
         }
     };
-
 
     return Object.assign(roomState, canBeIdentifiedByName(roomState));
 }
