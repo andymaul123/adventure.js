@@ -1,3 +1,4 @@
+"use strict";
 /*
 To Dos
 -------------------------
@@ -66,7 +67,6 @@ function catchInput(){
 function goOnAdventure() {
     //Set first room & update description
     currentRoom = cave;
-    updateRoomDesc();
 
     //Intro Text
     $('.message').text("You are in " + currentRoom.shortDesc);

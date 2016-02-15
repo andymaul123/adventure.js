@@ -1,3 +1,5 @@
+"use strict";
+
 var commandArray = ["look", "move", "take", "inventory", "use", "attack"];
 // Look Command function
 window.look = function(optionalObject) {
@@ -8,7 +10,7 @@ window.look = function(optionalObject) {
         if(optionalObject) {
             var isAThingCounter = false;
             for (var i = 0; i < currentRoom.things.length; i++) {
-                if (currentRoom.things[i].itemName == optionalObject) {
+                if (currentRoom.things[i] == optionalObject) {
                     if(currentRoom.things[i].hasOwnProperty('locked')) {
                         if(currentRoom.things[i].locked) {
                             $('.message').text(currentRoom.things[i].itemDesc + " It is locked.");
@@ -24,19 +26,14 @@ window.look = function(optionalObject) {
                 }
             };
             for (var i = 0; i < backpack.length; i++) {
-                if (backpack[i].itemName == optionalObject) {
+                if (backpack[i] == optionalObject) {
                     $('.message').text(backpack[i].itemDesc + " It is in your backpack.");
                     isAThingCounter = true;
                 }
             };
             for (var i = 0; i < currentRoom.enemies.length; i++) {
-                if (currentRoom.enemies[i].monsterName == optionalObject) {
-                    if(currentRoom.enemies[i].monsterDefense > 0) {
-                        $('.message').text(currentRoom.enemies[i].monsterDesc);
-                    }
-                    else {
-                        $('.message').text(currentRoom.enemies[i].monsterDeadDesc);
-                    }
+                if (currentRoom.enemies[i] == optionalObject) {
+                    $('.message').text(currentRoom.enemies[i].description);
                     isAThingCounter = true;
                 }
             };
@@ -45,7 +42,7 @@ window.look = function(optionalObject) {
             }
         }
         else {
-            $('.message').text(currentRoom.lDescModified);
+            $('.message').text(currentRoom.description);
         }
     }
 }
@@ -54,12 +51,11 @@ window.look = function(optionalObject) {
 window.take = function(optionalObject) {
     if(optionalObject) {
         for (var i = 0; i < currentRoom.things.length; i++) {
-            if (currentRoom.things[i].itemName == optionalObject) {
+            if (currentRoom.things[i] == optionalObject) {
                 if(currentRoom.things[i].canBeTaken) {
-                    $('.message').text("You take the " + currentRoom.things[i].itemName + ".");
+                    $('.message').text("You take the " + currentRoom.things[i] + ".");
                     backpack.push(currentRoom.things[i]);
                     currentRoom.things.splice(i,1);
-                    updateRoomDesc();
                 }
                 else {
                     $('.message').text("You can't take that.");
@@ -80,7 +76,7 @@ window.inventory = function() {
     if(backpack.length > 0) {
         var tempBackpack = [];
         for (var i = 0; i < backpack.length; i++) {
-            tempBackpack.push(backpack[i].itemName);
+            tempBackpack.push(backpack[i]);
         };
         $('.message').text("You have " + tempBackpack.join(', '));
     }
@@ -122,15 +118,12 @@ window.move = function(requiredObject) {
                     isThereARoom++;
                     if (currentRoom.pitchBlack && playerHasLight) {
                         $('.message').text("You are in " + currentRoom.shortDesc);
-                        updateRoomDesc();
                     }
                     else if (currentRoom.pitchBlack && playerHasLight == false) {
                         $('.message').text("The room is pitch black.");
-                        updateRoomDesc();
                     }
                     else {
                         $('.message').text("You are in " + currentRoom.shortDesc);
-                        updateRoomDesc();
                     }
                 }
             };
@@ -148,13 +141,13 @@ window.use = function(requiredObject) {
     if (requiredObject) {
         var canUse = false;
         for (var i = 0; i < backpack.length; i++) {
-            if (backpack[i].itemName == requiredObject) {
+            if (backpack[i] == requiredObject) {
                 backpack[i].activate();
                 canUse = true;
             }
         };
         for (var i = 0; i < currentRoom.things.length; i++) {
-            if (currentRoom.things[i].itemName == requiredObject) {
+            if (currentRoom.things[i] == requiredObject) {
                 currentRoom.things[i].activate();
                 canUse = true;
             }
