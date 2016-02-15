@@ -1,12 +1,16 @@
 function Room(roomName,shortDesc, lDesc, things, roomID, pitchBlack, enemies) {
-    this.roomName = roomName;
-    this.shortDesc = shortDesc;
-    this.lDesc = lDesc;
-    this.lDescModified = lDesc;
-    this.things = things;
-    this.roomID = roomID;
-    this.pitchBlack = pitchBlack;
-    this.enemies = enemies;
+    var roomState = {
+        name: roomName,
+        shortDesc: shortDesc,
+        lDesc: lDesc,
+        lDescModified: lDesc,
+        things: things,
+        roomID: roomID,
+        pitchBlack: pitchBlack,
+        enemies: enemies
+    };
+
+    return Object.assign(roomState, canBeIdentifiedByName(roomState));
 }
 
 var cave = new Room(
