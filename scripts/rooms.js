@@ -3,12 +3,29 @@ function Room(roomName,shortDesc, lDesc, things, roomID, pitchBlack, enemies) {
         name: roomName,
         shortDesc: shortDesc,
         lDesc: lDesc,
-        lDescModified: lDesc,
-        things: things,
+        things: things,//WORST VARIABLE NAME EVER
         roomID: roomID,
         pitchBlack: pitchBlack,
-        enemies: enemies
+        enemies: enemies,
+
+        get description() {
+            var tempDescription = lDesc;//Technically this is very bad, because we make a new string everytime we modify it, but it works for now
+
+            for (var i = 0; i < currentRoom.things.length; i++) {
+                    tempDescription += " " + things[i].itemInRoomDesc;
+                };
+                for (var i = 0; i < currentRoom.enemies.length; i++) {
+                    if(enemies[i].monsterDefense > 0) {
+                        tempDescription +=  " " + enemies[i].monsterInRoomDesc;
+                    }
+                    else {
+                       tempDescription += " " + enemies[i].monsterDeadDesc;
+                    }
+                }
+            return tempDescription;
+        }
     };
+
 
     return Object.assign(roomState, canBeIdentifiedByName(roomState));
 }
@@ -42,19 +59,4 @@ var dungeon = new Room(
     );
 
 var allRooms = [cave, hall, dungeon];
-
-function updateRoomDesc() {
-    currentRoom.lDescModified =  currentRoom.lDesc;
-    for (var i = 0; i < currentRoom.things.length; i++) {
-        currentRoom.lDescModified = currentRoom.lDescModified + " " + currentRoom.things[i].itemInRoomDesc;
-    };
-    for (var i = 0; i < currentRoom.enemies.length; i++) {
-        if(currentRoom.enemies[i].monsterDefense > 0) {
-            currentRoom.lDescModified = currentRoom.lDescModified + " " + currentRoom.enemies[i].monsterInRoomDesc;
-        }
-        else {
-           currentRoom.lDescModified = currentRoom.lDescModified + " " + currentRoom.enemies[i].monsterDeadDesc; 
-        }
-    }
-}
 

@@ -1,3 +1,13 @@
+"use strict";
+
+var canBeActivated = function canBeActivated(state) {
+    return {
+        activate: function() {
+            $('.message').text("It's a " + state + ". What would you expect to happen?");
+        }
+    }
+}
+
 function Item(itemName, itemDesc, itemInRoomDesc, canBeTaken) {
     var itemState = {
         name: itemName,
@@ -6,7 +16,7 @@ function Item(itemName, itemDesc, itemInRoomDesc, canBeTaken) {
         canBeTaken: canBeTaken
     };
 
-    return Object.assign(itemState,canBeIdentifiedByName(itemState));
+    return Object.assign(itemState,canBeIdentifiedByName(itemState),canBeActivated(itemState));
 }
 
 // Room 1 Cave Items
@@ -16,10 +26,6 @@ var pebble = new Item(
     "On the floor there is a pebble.",
     true
 );
-
-pebble.activate = function() {
-    $('.message').text("It's a pebble. What would you expect to happen?");
-}
 
 var torch = new Item(
     "torch",

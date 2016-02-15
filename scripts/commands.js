@@ -45,7 +45,7 @@ window.look = function(optionalObject) {
             }
         }
         else {
-            $('.message').text(currentRoom.lDescModified);
+            $('.message').text(currentRoom.description);
         }
     }
 }
@@ -59,7 +59,6 @@ window.take = function(optionalObject) {
                     $('.message').text("You take the " + currentRoom.things[i] + ".");
                     backpack.push(currentRoom.things[i]);
                     currentRoom.things.splice(i,1);
-                    updateRoomDesc();
                 }
                 else {
                     $('.message').text("You can't take that.");
@@ -122,15 +121,12 @@ window.move = function(requiredObject) {
                     isThereARoom++;
                     if (currentRoom.pitchBlack && playerHasLight) {
                         $('.message').text("You are in " + currentRoom.shortDesc);
-                        updateRoomDesc();
                     }
                     else if (currentRoom.pitchBlack && playerHasLight == false) {
                         $('.message').text("The room is pitch black.");
-                        updateRoomDesc();
                     }
                     else {
                         $('.message').text("You are in " + currentRoom.shortDesc);
-                        updateRoomDesc();
                     }
                 }
             };
