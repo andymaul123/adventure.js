@@ -1,4 +1,4 @@
-var commandArray = ["look", "move", "take", "inventory", "use"];
+var commandArray = ["look", "move", "take", "inventory", "use", "attack"];
 // Look Command function
 window.look = function(optionalObject) {
     if (currentRoom.pitchBlack && playerHasLight == false){
@@ -26,6 +26,17 @@ window.look = function(optionalObject) {
             for (var i = 0; i < backpack.length; i++) {
                 if (backpack[i].itemName == optionalObject) {
                     $('.message').text(backpack[i].itemDesc + " It is in your backpack.");
+                    isAThingCounter = true;
+                }
+            };
+            for (var i = 0; i < currentRoom.enemies.length; i++) {
+                if (currentRoom.enemies[i].monsterName == optionalObject) {
+                    if(currentRoom.enemies[i].monsterDefense > 0) {
+                        $('.message').text(currentRoom.enemies[i].monsterDesc);
+                    }
+                    else {
+                        $('.message').text(currentRoom.enemies[i].monsterDeadDesc);
+                    }
                     isAThingCounter = true;
                 }
             };

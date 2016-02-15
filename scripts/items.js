@@ -28,6 +28,34 @@ torch.activate = function() {
     playerHasLight = true;
     $('.message').text("With a few sparks from your flint and steel the torch catches and roars to life.");
 }
+var sword = new Item(
+    "sword",
+    "A long steel blade that still holds an edge, despite its obvious age.",
+    "On the wall is a wooden plaque with a sword fastened horizontally.",
+    true
+    );
+sword.activate = function() {
+    if(currentRoom.enemies.length >= 1) {
+        for (var i = 0; i < currentRoom.enemies.length; i++) {
+            if(currentRoom.enemies[i].monsterDefense > 0) {
+                currentRoom.enemies[i].monsterDefense = currentRoom.enemies[i].monsterDefense - 5;
+                console.log(currentRoom.enemies[i].monsterDefense);
+                 if(currentRoom.enemies[i].monsterDefense <= 0) {
+                    $('.message').text("With a final swing the " + currentRoom.enemies[i].monsterName + " falls to the floor, dead.");
+                 }
+                 else {
+                    $('.message').text("You swing your sword at the " + currentRoom.enemies[i].monsterName + "!");
+                 }
+            }
+            else {
+                $('.message').text("The " + currentRoom.enemies[i].monsterName + " is already dead.");
+            }
+        }
+    }
+    else {
+        $('.message').text("It's dangerous to swing a sword around like a toy.");
+    }
+}
 
 //Room 2 Hall Items
 var key = new Item(

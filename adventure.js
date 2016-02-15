@@ -79,8 +79,9 @@ $(document).ready(function() {
     /* Load additional js files here
     Order matters. Load scripts that are required by other scripts first (items before rooms etc)
      */
-    requirejs(['scripts/player','scripts/utils','scripts/items','scripts/rooms', 'scripts/commands'], function() {
-
+    requirejs(['scripts/player', 'scripts/monsters', 'scripts/items','scripts/rooms', 'scripts/commands'], function() {
+        //currentRoom = cave;
+        //console.log("HI cave", cave);
         goOnAdventure();
     });
 
