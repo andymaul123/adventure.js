@@ -45,14 +45,14 @@ sword.activate = function() {
                 currentRoom.enemies[i].monsterDefense = currentRoom.enemies[i].monsterDefense - 5;
                 console.log(currentRoom.enemies[i].monsterDefense);
                  if(currentRoom.enemies[i].monsterDefense <= 0) {
-                    $('.message').text("With a final swing the " + currentRoom.enemies[i].monsterName + " falls to the floor, dead.");
+                    $('.message').text("With a final swing the " + currentRoom.enemies[i] + " falls to the floor, dead.");
                  }
                  else {
-                    $('.message').text("You swing your sword at the " + currentRoom.enemies[i].monsterName + "!");
+                    $('.message').text("You swing your sword at the " + currentRoom.enemies[i] + "!");
                  }
             }
             else {
-                $('.message').text("The " + currentRoom.enemies[i].monsterName + " is already dead.");
+                $('.message').text("The " + currentRoom.enemies[i] + " is already dead.");
             }
         }
     }

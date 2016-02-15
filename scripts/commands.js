@@ -30,7 +30,7 @@ window.look = function(optionalObject) {
                 }
             };
             for (var i = 0; i < currentRoom.enemies.length; i++) {
-                if (currentRoom.enemies[i].monsterName == optionalObject) {
+                if (currentRoom.enemies[i] == optionalObject) {
                     if(currentRoom.enemies[i].monsterDefense > 0) {
                         $('.message').text(currentRoom.enemies[i].monsterDesc);
                     }

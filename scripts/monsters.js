@@ -1,10 +1,14 @@
 function Monster(monsterName, monsterDesc, monsterInRoomDesc, monsterDefense, monsterAttack, monsterDeadDesc) {
-	this.monsterName = monsterName;
-	this.monsterDesc = monsterDesc;
-	this.monsterInRoomDesc = monsterInRoomDesc;
-	this.monsterDefense = monsterDefense;
-	this.monsterAttack = monsterAttack;
-	this.monsterDeadDesc = monsterDeadDesc;
+	var monsterState = {
+	    name: monsterName,
+	    monsterDesc: monsterDesc,
+	    monsterInRoomDesc: monsterInRoomDesc,
+	    monsterDefense: monsterDefense,
+	    monsterAttack: monsterAttack,
+	    monsterDeadDesc: monsterDeadDesc
+	};
+
+	return Object.assign(monsterState, canBeIdentifiedByName(monsterState));
 }
 var troll = new Monster(
 	"troll",
