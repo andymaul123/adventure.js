@@ -1,12 +1,34 @@
+"use strict";
+
 function Room(roomName,shortDesc, lDesc, things, roomID, pitchBlack, enemies) {
-    this.roomName = roomName;
-    this.shortDesc = shortDesc;
-    this.lDesc = lDesc;
-    this.lDescModified = lDesc;
-    this.things = things;
-    this.roomID = roomID;
-    this.pitchBlack = pitchBlack;
-    this.enemies = enemies;
+    var roomState = {
+        name: roomName,
+        shortDesc: shortDesc,
+        lDesc: lDesc,
+        things: things,//WORST VARIABLE NAME EVER
+        roomID: roomID,
+        pitchBlack: pitchBlack,
+        enemies: enemies,
+
+        get description() {
+            var tempDescription = lDesc;//Technically this is very bad, because we make a new string everytime we modify it, but it works for now
+
+            for (var i = 0; i < currentRoom.things.length; i++) {
+                    tempDescription += " " + things[i].itemInRoomDesc;
+                };
+                for (var i = 0; i < currentRoom.enemies.length; i++) {
+                    if(enemies[i].monsterDefense > 0) {
+                        tempDescription +=  " " + enemies[i].monsterInRoomDesc;
+                    }
+                    else {
+                       tempDescription += " " + enemies[i].deadDesc;
+                    }
+                }
+            return tempDescription;
+        }
+    };
+
+    return Object.assign(roomState, canBeIdentifiedByName(roomState));
 }
 
 var cave = new Room(
@@ -38,19 +60,4 @@ var dungeon = new Room(
     );
 
 var allRooms = [cave, hall, dungeon];
-
-function updateRoomDesc() {
-    currentRoom.lDescModified =  currentRoom.lDesc;
-    for (var i = 0; i < currentRoom.things.length; i++) {
-        currentRoom.lDescModified = currentRoom.lDescModified + " " + currentRoom.things[i].itemInRoomDesc;
-    };
-    for (var i = 0; i < currentRoom.enemies.length; i++) {
-        if(currentRoom.enemies[i].monsterDefense > 0) {
-            currentRoom.lDescModified = currentRoom.lDescModified + " " + currentRoom.enemies[i].monsterInRoomDesc;
-        }
-        else {
-           currentRoom.lDescModified = currentRoom.lDescModified + " " + currentRoom.enemies[i].monsterDeadDesc; 
-        }
-    }
-}
 
