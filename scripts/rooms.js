@@ -1,6 +1,6 @@
 "use strict";
 
-function Room(roomName,shortDesc, lDesc, things, roomID, pitchBlack, enemies) {
+function Room(roomName,shortDesc, lDesc, things, roomID, pitchBlack, enemies, exits) {
     var roomState = {
         name: roomName,
         shortDesc: shortDesc,
@@ -9,6 +9,7 @@ function Room(roomName,shortDesc, lDesc, things, roomID, pitchBlack, enemies) {
         roomID: roomID,
         pitchBlack: pitchBlack,
         enemies: enemies,
+        exits: exits,
 
         get description() {
             var tempDescription = lDesc;//Technically this is very bad, because we make a new string everytime we modify it, but it works for now
@@ -22,6 +23,24 @@ function Room(roomName,shortDesc, lDesc, things, roomID, pitchBlack, enemies) {
                     }
                     else {
                        tempDescription += " " + enemies[i].deadDesc;
+                    }
+                }
+                if(currentRoom.exits.length > 0) {
+                    if(currentRoom.exits.length == 1) {
+                        tempDescription += " There is an exit to the ";
+                        tempDescription += " " + currentRoom.exits[0] + ".";
+                    }
+                    else if(currentRoom.exits.length == 2) {
+                        tempDescription += " There are exits to the ";
+                        tempDescription += " " + currentRoom.exits[0] + " and to the " + currentRoom.exits[1] + ".";
+                    }
+                    else if(currentRoom.exits.length == 3) {
+                        tempDescription += " There are exits to the ";
+                        tempDescription += " " + currentRoom.exits[0] + ", " + currentRoom.exits[1] + ", and " + currentRoom.exits[2] + ".";
+                    }
+                    else if(currentRoom.exits.length == 4) {
+                        tempDescription += " There are exits to the ";
+                        tempDescription += " " + currentRoom.exits[0] + ", " + currentRoom.exits[1] + ", " + currentRoom.exits[2] + ", and " + currentRoom.exits[3] + ".";
                     }
                 }
             return tempDescription;
@@ -38,16 +57,18 @@ var cave = new Room(
     [pebble, torch],
     11,
     false,
-    []
+    [],
+    ["north"]
     );
 var hall = new Room(
     "hall",
     "a long stone tunnel.",
-    "Hewn stone walls extend north creating a claustrophobic hall that culminates in a set of double-doors.",
+    "Hewn stone walls extend north creating a claustrophobic hall.",
     [doubleDoors, key, sword],
     7,
     true,
-    []
+    [],
+    ["north", "east", "south", "west"]
     );
 var dungeon = new Room(
     "dungeon",
@@ -56,7 +77,8 @@ var dungeon = new Room(
     [],
     6,
     false,
-    [troll]
+    [troll],
+    ["east"]
     );
 
 var allRooms = [cave, hall, dungeon];

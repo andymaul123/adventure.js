@@ -88,7 +88,7 @@ key.activate = function() {
 var doubleDoors = new Item(
     "doors",
     "A set of double doors.",
-    "Massive double doors made from wood and reinforced with iron.",
+    "It culminates in a set of massive double doors made from wood and reinforced with iron.",
     false
 );
 
