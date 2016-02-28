@@ -64,7 +64,7 @@ var hall = new Room(
     "hall",
     "a long stone tunnel.",
     "Hewn stone walls extend north creating a claustrophobic hall.",
-    [doubleDoors, key, sword],
+    [doubleDoors, dungeonPass, kitchenDoor, sword],
     7,
     true,
     [],
@@ -77,9 +77,18 @@ var dungeon = new Room(
     [],
     6,
     false,
-    [troll],
+    [troll, key],
     ["east"]
     );
-
-var allRooms = [cave, hall, dungeon];
+var kitchen = new Room(
+    "kitchen",
+    "a warm kitchen.",
+    "The smell of cooked food is baked into the walls. The room is warm, and well-lit, thanks to the hearth.",
+    [],
+    8,
+    false,
+    [],
+    ["north", "west"]
+    );
+var allRooms = [cave, hall, dungeon, kitchen];
 

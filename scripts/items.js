@@ -86,9 +86,9 @@ key.activate = function() {
 }
 
 var doubleDoors = new Item(
-    "doors",
-    "A set of double doors.",
-    "It culminates in a set of massive double doors made from wood and reinforced with iron.",
+    "double-doors",
+    "A set of double-doors.",
+    "It culminates in a set of massive double-doors made from wood and reinforced with iron.",
     false
 );
 
@@ -104,5 +104,31 @@ doubleDoors.activate = function() {
     }
     else {
         $('.message').text("There's not much more to be done with the doors.");
+    }
+}
+var dungeonPass = new Item(
+    "passage",
+    "A passage leading down and to the west.",
+    "There is a passage on the west wall leading down.",
+    false
+);
+var kitchenDoor = new Item(
+    "door",
+    "An old wooden door, slightly warped.",
+    "The eastern wall sports a warped old door.",
+    false
+);
+kitchenDoor.locked = false;
+kitchenDoor.open = false;
+kitchenDoor.activate = function() {
+    if (kitchenDoor.locked) {
+        $('.message').text("It appears to be locked, and won't open.");
+    }
+    else if (kitchenDoor.open == false) {
+        kitchenDoor.open = true;
+        $('.message').text("The wood creaks almost as loud as the hinges, but the door swings open with some effort.");
+    }
+    else {
+        $('.message').text("It's already open, and unless you want to oil the hinges there isn't much else to do.");
     }
 }
