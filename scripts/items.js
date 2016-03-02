@@ -6,6 +6,26 @@ var canBeActivated = function canBeActivated(state) {
             $('.message').text("It's a " + state + ". What would you expect to happen?");
         }
     }
+};
+
+var canBeOpened = function canBeOpened(state) {
+    return {
+        open: function() {
+            if (state.isLocked) {
+                $('.message').text("Try as you might, it won't budge.");
+            }
+            else if (state.isOpen == false) {
+                state.isOpen = true;
+                $('.message').text("With some effort you slowly push it open.");
+            }
+            else {
+                $('.message').text("There's not much more to be done with it");
+            }
+        },
+        activate: function() {
+            state.open();
+        }
+    }
 }
 
 function Item(itemName, itemDesc, itemInRoomDesc, canBeTaken) {
@@ -26,7 +46,9 @@ function Door(doorName, doorDesc, doorInRoomDesc, isLocked, isOpen, directionBlo
         directionBlocked: directionBlocked
     };
 
-    return Object.assign(doorState, new Item(doorName, doorDesc, doorInRoomDesc, false));
+    return Object.assign(doorState,
+        new Item(doorName, doorDesc, doorInRoomDesc, false),
+        canBeOpened(doorState));
 }
 
 // Room 1 Cave Items
@@ -126,18 +148,18 @@ var newDoubleDoors = new Door(
     false
 );
 
-newDoubleDoors.activate = function() {
-    if (doubleDoors.locked) {
-        $('.message').text("Try as you might, the doors won't budge.");
-    }
-    else if (doubleDoors.open == false) {
-        doubleDoors.open = true;
-        $('.message').text("With some effort you slowly push the double doors open.");
-    }
-    else {
-        $('.message').text("There's not much more to be done with the doors.");
-    }
-}
+// newDoubleDoors.activate = function() {
+//     if (doubleDoors.locked) {
+//         $('.message').text("Try as you might, the doors won't budge.");
+//     }
+//     else if (doubleDoors.open == false) {
+//         doubleDoors.open = true;
+//         $('.message').text("With some effort you slowly push the double doors open.");
+//     }
+//     else {
+//         $('.message').text("There's not much more to be done with the doors.");
+//     }
+// }
 
 var dungeonPass = new Item(
     "passage",
