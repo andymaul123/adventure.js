@@ -19,6 +19,16 @@ function Item(itemName, itemDesc, itemInRoomDesc, canBeTaken) {
     return Object.assign(itemState,canBeIdentifiedByName(itemState),canBeActivated(itemState));
 }
 
+function Door(doorName, doorDesc, doorInRoomDesc, canBeTaken, isLocked, isOpen, directionBlocked) {
+    var doorState = {
+        isLocked: isLocked,
+        isOpen: isOpen,
+        directionBlocked: directionBlocked
+    };
+
+    return Object.assign(doorState, new Item(doorName, doorDesc, doorInRoomDesc, false));
+}
+
 // Room 1 Cave Items
 var pebble = new Item(
     "pebble",
