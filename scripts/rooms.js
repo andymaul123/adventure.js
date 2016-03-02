@@ -64,7 +64,7 @@ var hall = new Room(
     "hall",
     "a long stone tunnel.",
     "Hewn stone walls extend north creating a claustrophobic hall.",
-    [doubleDoors, dungeonPass, kitchenDoor, sword],
+    [newDoubleDoors, dungeonPass, kitchenDoor, sword],
     7,
     true,
     [],
