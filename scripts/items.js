@@ -19,7 +19,7 @@ function Item(itemName, itemDesc, itemInRoomDesc, canBeTaken) {
     return Object.assign(itemState,canBeIdentifiedByName(itemState),canBeActivated(itemState));
 }
 
-function Door(doorName, doorDesc, doorInRoomDesc, canBeTaken, isLocked, isOpen, directionBlocked) {
+function Door(doorName, doorDesc, doorInRoomDesc, isLocked, isOpen, directionBlocked) {
     var doorState = {
         isLocked: isLocked,
         isOpen: isOpen,
@@ -116,6 +116,29 @@ doubleDoors.activate = function() {
         $('.message').text("There's not much more to be done with the doors.");
     }
 }
+
+var newDoubleDoors = new Door(
+    "new-double-doors",
+    "A set of double-doors.",
+    "It culminates in a set of massive double-doors made from wood and reinforced with iron.",
+    true,
+    false,
+    false
+);
+
+newDoubleDoors.activate = function() {
+    if (doubleDoors.locked) {
+        $('.message').text("Try as you might, the doors won't budge.");
+    }
+    else if (doubleDoors.open == false) {
+        doubleDoors.open = true;
+        $('.message').text("With some effort you slowly push the double doors open.");
+    }
+    else {
+        $('.message').text("There's not much more to be done with the doors.");
+    }
+}
+
 var dungeonPass = new Item(
     "passage",
     "A passage leading down and to the west.",
