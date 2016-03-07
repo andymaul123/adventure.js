@@ -155,3 +155,36 @@ kitchenDoor.activate = function() {
         $('.message').text("It's already open, and unless you want to oil the hinges there isn't much else to do.");
     }
 }
+/*
+============================================================================================
+Items in Room: Kitchen
+============================================================================================
+*/
+var knife = new Item(
+    "knife",
+    "A long kitchen knife.",
+    "On the table rests a long iron knife.",
+    true
+);
+knife.activate = function() {
+    if(currentRoom.enemies.length >= 1) {
+        for (var i = 0; i < currentRoom.enemies.length; i++) {
+            if(currentRoom.enemies[i].monsterDefense > 0) {
+                currentRoom.enemies[i].monsterDefense -= 3.5;
+                console.log(currentRoom.enemies[i].monsterDefense);
+                 if(currentRoom.enemies[i].monsterDefense <= 0) {
+                    $('.message').text("With a vicious stab the " + currentRoom.enemies[i] + " falls to the floor, dead.");
+                 }
+                 else {
+                    $('.message').text("You stab the " + currentRoom.enemies[i] + " with your knife!");
+                 }
+            }
+            else {
+                $('.message').text("The " + currentRoom.enemies[i] + " is already dead!");
+            }
+        }
+    }
+    else {
+        $('.message').text("Easy, stabby. There's nothing to use a knife on.");
+    }
+}
