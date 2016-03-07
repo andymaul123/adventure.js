@@ -1,7 +1,12 @@
 "use strict";
 
 var commandArray = ["look", "move", "take", "inventory", "use", "attack", "open"];
-// Look Command function
+
+/*
+============================================================================================
+Command: Look
+============================================================================================
+*/
 window.look = function(optionalObject) {
     if (currentRoom.pitchBlack && playerHasLight == false){
         $('.message').text("It is too dark to see. Get some light first.");
@@ -11,12 +16,15 @@ window.look = function(optionalObject) {
             var isAThingCounter = false;
             for (var i = 0; i < currentRoom.things.length; i++) {
                 if (currentRoom.things[i] == optionalObject) {
-                    if(currentRoom.things[i].hasOwnProperty('locked')) {
-                        if(currentRoom.things[i].locked) {
+                    if(currentRoom.things[i].hasOwnProperty('isLocked')) {
+                        if(currentRoom.things[i].isLocked === true) {
                             $('.message').text(currentRoom.things[i].itemDesc + " It is locked.");
                         }
-                        else {
+                        else if(currentRoom.things[i].isLocked === false) {
                             $('.message').text(currentRoom.things[i].itemDesc + " It is unlocked.");
+                        }
+                        else {
+                            $('.message').text(currentRoom.things[i].itemDesc);
                         }
                     }
                     else {
@@ -47,7 +55,11 @@ window.look = function(optionalObject) {
     }
 }
 
-// Take Command function
+/*
+============================================================================================
+Command: Take
+============================================================================================
+*/
 window.take = function(optionalObject) {
     if(optionalObject) {
         for (var i = 0; i < currentRoom.things.length; i++) {
@@ -71,7 +83,11 @@ window.take = function(optionalObject) {
     }
 }
 
-// Inventory Command function
+/*
+============================================================================================
+Command: Inventory
+============================================================================================
+*/
 window.inventory = function() {
     if(backpack.length > 0) {
         var tempBackpack = [];
@@ -85,7 +101,11 @@ window.inventory = function() {
     }
 }
 
-// Move Command function
+/*
+============================================================================================
+Command: Move
+============================================================================================
+*/
 window.move = function(requiredObject) {
     if(requiredObject) {
         var convertedDirection;
@@ -116,7 +136,6 @@ window.move = function(requiredObject) {
             if(currentRoom.things[i].directionBlocked === requiredObject) {
                 if(currentRoom.things[i].isOpen === false) {
                     blockedMove = true;
-                    console.log("BLOCKED");
                 }
             }
         }
@@ -154,7 +173,11 @@ window.move = function(requiredObject) {
         $('.message').text("Move where?");
     }
 }
-// Use Command
+/*
+============================================================================================
+Command: Use
+============================================================================================
+*/
 window.use = function(requiredObject) {
     if (requiredObject) {
         var canUse = false;
@@ -179,13 +202,16 @@ window.use = function(requiredObject) {
         $('.message').text("Use what?");
     }
 }
-// Open Command - If object can be opened, activate it
+/*
+============================================================================================
+Command: Open
+============================================================================================
+*/
 window.open = function(requiredObject) {
     if (requiredObject) {
         for (var i = 0; i < currentRoom.things.length; i++) {
             if (currentRoom.things[i] == requiredObject) {
                 if(currentRoom.things[i].hasOwnProperty('isOpen')) {
-                    console.log("success");
                     currentRoom.things[i].activate();
                 }
                 else {

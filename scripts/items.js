@@ -46,7 +46,11 @@ function Door(doorName, doorDesc, doorInRoomDesc, isLocked, isOpen, directionBlo
         canBeOpened(doorState));
 }
 
-// Room 1 Cave Items
+/*
+============================================================================================
+Items in Room: Cave
+============================================================================================
+*/
 var pebble = new Item(
     "pebble",
     "A small, smooth pebble.",
@@ -65,6 +69,11 @@ torch.activate = function() {
     playerHasLight = true;
     $('.message').text("With a few sparks from your flint and steel the torch catches and roars to life.");
 }
+/*
+============================================================================================
+Items in Room: Hall
+============================================================================================
+*/
 var sword = new Item(
     "sword",
     "A long steel blade that still holds an edge, despite its obvious age.",
@@ -94,14 +103,12 @@ sword.activate = function() {
     }
 }
 
-//Room 2 Hall Items
 var key = new Item(
     "key",
     "Small iron key.",
     "A small key twinkles in the flickering light of your torch.",
     true
 );
-
 key.activate = function() {
     if (currentRoom == hall){
         doubleDoors.locked = false;
@@ -120,12 +127,11 @@ var doubleDoors = new Door(
     false,
     "north"
 );
-
 var dungeonPass = new Door(
     "passage",
     "A passage leading down and to the west.",
     "There is a passage on the west wall leading down.",
-    false,
+    null,
     true,
     null
 );
