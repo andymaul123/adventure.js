@@ -64,9 +64,9 @@ var hall = new Room(
     "hall",
     "a long stone tunnel.",
     "Hewn stone walls extend north creating a claustrophobic hall.",
-    [newDoubleDoors, dungeonPass, kitchenDoor, sword],
+    [doubleDoors, dungeonPass, kitchenDoor, sword],
     7,
-    true,
+    false,
     [],
     ["north", "east", "south", "west"]
     );
@@ -74,10 +74,10 @@ var dungeon = new Room(
     "dungeon",
     "an underground dungeon.",
     "Iron shackles imprison calcified skeletons against the walls. A large chandelier made of antlers casts an deathly pallor across the room.",
-    [],
+    [key],
     6,
     false,
-    [troll, key],
+    [troll],
     ["east"]
     );
 var kitchen = new Room(

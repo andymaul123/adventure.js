@@ -10,7 +10,7 @@ var canBeActivated = function canBeActivated(state) {
 
 var canBeOpened = function canBeOpened(state) {
     return {
-        open: function() {
+        activate: function() {
             if (state.isLocked) {
                 $('.message').text("Try as you might, it won't budge.");
             }
@@ -21,9 +21,6 @@ var canBeOpened = function canBeOpened(state) {
             else {
                 $('.message').text("There's not much more to be done with it");
             }
-        },
-        activate: function() {
-            state.open();
         }
     }
 }
@@ -35,7 +32,6 @@ function Item(itemName, itemDesc, itemInRoomDesc, canBeTaken) {
         itemInRoomDesc: itemInRoomDesc,
         canBeTaken: canBeTaken
     };
-
     return Object.assign(itemState,canBeIdentifiedByName(itemState),canBeActivated(itemState));
 }
 
@@ -45,7 +41,6 @@ function Door(doorName, doorDesc, doorInRoomDesc, isLocked, isOpen, directionBlo
         isOpen: isOpen,
         directionBlocked: directionBlocked
     };
-
     return Object.assign(doorState,
         new Item(doorName, doorDesc, doorInRoomDesc, false),
         canBeOpened(doorState));
@@ -117,70 +112,37 @@ key.activate = function() {
     }
 }
 
-var doubleDoors = new Item(
+var doubleDoors = new Door(
     "double-doors",
-    "A set of double-doors.",
-    "It culminates in a set of massive double-doors made from wood and reinforced with iron.",
-    false
-);
-
-doubleDoors.locked = true;
-doubleDoors.open = false;
-doubleDoors.activate = function() {
-    if (doubleDoors.locked) {
-        $('.message').text("Try as you might, the doors won't budge.");
-    }
-    else if (doubleDoors.open == false) {
-        doubleDoors.open = true;
-        $('.message').text("With some effort you slowly push the double doors open.");
-    }
-    else {
-        $('.message').text("There's not much more to be done with the doors.");
-    }
-}
-
-var newDoubleDoors = new Door(
-    "new-double-doors",
     "A set of double-doors.",
     "It culminates in a set of massive double-doors made from wood and reinforced with iron.",
     true,
     false,
-    false
+    "north"
 );
 
-// newDoubleDoors.activate = function() {
-//     if (doubleDoors.locked) {
-//         $('.message').text("Try as you might, the doors won't budge.");
-//     }
-//     else if (doubleDoors.open == false) {
-//         doubleDoors.open = true;
-//         $('.message').text("With some effort you slowly push the double doors open.");
-//     }
-//     else {
-//         $('.message').text("There's not much more to be done with the doors.");
-//     }
-// }
-
-var dungeonPass = new Item(
+var dungeonPass = new Door(
     "passage",
     "A passage leading down and to the west.",
     "There is a passage on the west wall leading down.",
-    false
+    false,
+    true,
+    null
 );
-var kitchenDoor = new Item(
+var kitchenDoor = new Door(
     "door",
     "An old wooden door, slightly warped.",
     "The eastern wall sports a warped old door.",
-    false
+    false,
+    false,
+    "east"
 );
-kitchenDoor.locked = false;
-kitchenDoor.open = false;
 kitchenDoor.activate = function() {
-    if (kitchenDoor.locked) {
+    if (kitchenDoor.isLocked) {
         $('.message').text("It appears to be locked, and won't open.");
     }
-    else if (kitchenDoor.open == false) {
-        kitchenDoor.open = true;
+    else if (kitchenDoor.isOpen == false) {
+        kitchenDoor.isOpen = true;
         $('.message').text("The wood creaks almost as loud as the hinges, but the door swings open with some effort.");
     }
     else {

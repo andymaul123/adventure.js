@@ -1,6 +1,6 @@
 "use strict";
 
-var commandArray = ["look", "move", "take", "inventory", "use", "attack"];
+var commandArray = ["look", "move", "take", "inventory", "use", "attack", "open"];
 // Look Command function
 window.look = function(optionalObject) {
     if (currentRoom.pitchBlack && playerHasLight == false){
@@ -163,5 +163,24 @@ window.use = function(requiredObject) {
     }
     else {
         $('.message').text("Use what?");
+    }
+}
+// Open Command - If object can be opened, activate it
+window.open = function(requiredObject) {
+    if (requiredObject) {
+        for (var i = 0; i < currentRoom.things.length; i++) {
+            if (currentRoom.things[i] == requiredObject) {
+                if(currentRoom.things[i].hasOwnProperty('isOpen')) {
+                    console.log("success");
+                    currentRoom.things[i].activate();
+                }
+                else {
+                    $('.message').text("You can't open that.");
+                }
+            }
+        };
+    }
+    else {
+        $('.message').text("Open what?");
     }
 }
