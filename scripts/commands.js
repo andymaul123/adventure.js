@@ -111,6 +111,15 @@ window.move = function(requiredObject) {
                 return
         }
         var moveMath = currentRoom.roomID + convertedDirection;
+        var blockedMove = false;
+        for (var i = 0; i < currentRoom.things.length; i++) {
+            if(currentRoom.things[i].directionBlocked === requiredObject) {
+                if(currentRoom.things[i].isOpen === false) {
+                    blockedMove = true;
+                    console.log("BLOCKED");
+                }
+            }
+        }
         if (moveMath == currentRoom.roomID) {
             $('.message').text("You can't move that way.");
         }
@@ -118,16 +127,21 @@ window.move = function(requiredObject) {
             var isThereARoom = 0;
             for (var i = 0; i < allRooms.length; i++) {
                 if(allRooms[i].roomID == moveMath) {
-                    currentRoom = allRooms[i];
                     isThereARoom++;
-                    if (currentRoom.pitchBlack && playerHasLight) {
-                        $('.message').text("You are in " + currentRoom.shortDesc);
+                    if(blockedMove === false) {
+                        currentRoom = allRooms[i];
+                        if (currentRoom.pitchBlack && playerHasLight) {
+                            $('.message').text("You are in " + currentRoom.shortDesc);
+                        }
+                        else if (currentRoom.pitchBlack && playerHasLight == false) {
+                            $('.message').text("The room is pitch black.");
+                        }
+                        else {
+                            $('.message').text("You are in " + currentRoom.shortDesc);
+                        }
                     }
-                    else if (currentRoom.pitchBlack && playerHasLight == false) {
-                        $('.message').text("The room is pitch black.");
-                    }
-                    else {
-                        $('.message').text("You are in " + currentRoom.shortDesc);
+                    else if(blockedMove === true){
+                        $('.message').text("That way is currently blocked.");
                     }
                 }
             };
