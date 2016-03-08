@@ -153,6 +153,11 @@ window.move = function(requiredObject) {
                 if(allRooms[i].roomID == moveMath) {
                     isThereARoom++;
                     if(blockedMove === false) {
+                        if(playerHasLight === false) {
+                            if(torchIsLit && $.inArray(torch, backpack) >= 0) {
+                                playerHasLight = true;
+                            }
+                        }
                         currentRoom = allRooms[i];
                         if (currentRoom.pitchBlack && playerHasLight) {
                             $('.message').html("You are in " + currentRoom.shortDesc);
