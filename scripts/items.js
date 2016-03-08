@@ -3,7 +3,7 @@
 var canBeActivated = function canBeActivated(state) {
     return {
         activate: function() {
-            $('.message').text("It's a " + state + ". What would you expect to happen?");
+            $('.message').html("It's a " + state + ". What would you expect to happen?");
         }
     }
 };
@@ -12,14 +12,14 @@ var canBeOpened = function canBeOpened(state) {
     return {
         activate: function() {
             if (state.isLocked) {
-                $('.message').text("Try as you might, it won't budge.");
+                $('.message').html("Try as you might, it won't budge.");
             }
             else if (state.isOpen == false) {
                 state.isOpen = true;
-                $('.message').text("With some effort you slowly push it open.");
+                $('.message').html("With some effort you slowly push it open.");
             }
             else {
-                $('.message').text("There's not much more to be done with it");
+                $('.message').html("There's not much more to be done with it");
             }
         }
     }
@@ -67,7 +67,7 @@ var torch = new Item(
 
 torch.activate = function() {
     playerHasLight = true;
-    $('.message').text("With a few sparks from your flint and steel the torch catches and roars to life.");
+    $('.message').html("With a few sparks from your flint and steel the torch catches and roars to life.");
 }
 /*
 ============================================================================================
@@ -87,19 +87,19 @@ sword.activate = function() {
                 currentRoom.enemies[i].monsterDefense -= 5;
                 console.log(currentRoom.enemies[i].monsterDefense);
                  if(currentRoom.enemies[i].monsterDefense <= 0) {
-                    $('.message').text("With a final swing the " + currentRoom.enemies[i] + " falls to the floor, dead.");
+                    $('.message').html("With a final swing the " + currentRoom.enemies[i] + " falls to the floor, dead.");
                  }
                  else {
-                    $('.message').text("You swing your sword at the " + currentRoom.enemies[i] + "!");
+                    $('.message').html("You swing your sword at the " + currentRoom.enemies[i] + "!");
                  }
             }
             else {
-                $('.message').text("The " + currentRoom.enemies[i] + " is already dead.");
+                $('.message').html("The " + currentRoom.enemies[i] + " is already dead.");
             }
         }
     }
     else {
-        $('.message').text("It's dangerous to swing a sword around like a toy.");
+        $('.message').html("It's dangerous to swing a sword around like a toy.");
     }
 }
 
@@ -112,10 +112,10 @@ var key = new Item(
 key.activate = function() {
     if (currentRoom == hall){
         doubleDoors.locked = false;
-        $('.message').text("With a twist the doors' lock disengages.");
+        $('.message').html("With a twist the doors' lock disengages.");
     }
     else {
-        $('.message').text("Now is not the time to use that.");
+        $('.message').html("Now is not the time to use that.");
     }
 }
 
@@ -145,14 +145,14 @@ var kitchenDoor = new Door(
 );
 kitchenDoor.activate = function() {
     if (kitchenDoor.isLocked) {
-        $('.message').text("It appears to be locked, and won't open.");
+        $('.message').html("It appears to be locked, and won't open.");
     }
     else if (kitchenDoor.isOpen == false) {
         kitchenDoor.isOpen = true;
-        $('.message').text("The wood creaks almost as loud as the hinges, but the door swings open with some effort.");
+        $('.message').html("The wood creaks almost as loud as the hinges, but the door swings open with some effort.");
     }
     else {
-        $('.message').text("It's already open, and unless you want to oil the hinges there isn't much else to do.");
+        $('.message').html("It's already open, and unless you want to oil the hinges there isn't much else to do.");
     }
 }
 /*
@@ -173,18 +173,44 @@ knife.activate = function() {
                 currentRoom.enemies[i].monsterDefense -= 3.5;
                 console.log(currentRoom.enemies[i].monsterDefense);
                  if(currentRoom.enemies[i].monsterDefense <= 0) {
-                    $('.message').text("With a vicious stab the " + currentRoom.enemies[i] + " falls to the floor, dead.");
+                    $('.message').html("With a vicious stab the " + currentRoom.enemies[i] + " falls to the floor, dead.");
                  }
                  else {
-                    $('.message').text("You stab the " + currentRoom.enemies[i] + " with your knife!");
+                    $('.message').html("You stab the " + currentRoom.enemies[i] + " with your knife!");
                  }
             }
             else {
-                $('.message').text("The " + currentRoom.enemies[i] + " is already dead!");
+                $('.message').html("The " + currentRoom.enemies[i] + " is already dead!");
             }
         }
     }
     else {
-        $('.message').text("Easy, stabby. There's nothing to use a knife on.");
+        $('.message').html("Easy, stabby. There's nothing to use a knife on.");
     }
+}
+/*
+============================================================================================
+Items in Room: Library
+============================================================================================
+*/
+var scroll = new Item(
+    "scroll",
+    "A map scrawled on a scroll of vellum.",
+    "Though most of the books look as if they haven't been touched in ages, a scroll rests, half unrolled, on a nearby desk.",
+    true
+);
+var mapPicture = 
+"The scroll unfolds to reveal:" + "<br>" + 
+"--------------------" + "<br>" + 
+"|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|" + "<br>" + 
+"|&nbsp;&nbsp;&nbsp;x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;&nbsp;x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|" + "<br>" + 
+"|&nbsp;&nbsp;&nbsp;x&nbsp;&nbsp;x&nbsp;&nbsp;x&nbsp;&nbsp;x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|" + "<br>" + 
+"|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|" + "<br>" + 
+"|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|" + "<br>" + 
+"|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|" + "<br>" + 
+"--------------------";
+
+console.log(mapPicture);
+scroll.activate = function() {
+    $('.message').html(mapPicture);
 }

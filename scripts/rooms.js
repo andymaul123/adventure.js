@@ -50,7 +50,8 @@ function Room(roomName,shortDesc, lDesc, things, roomID, pitchBlack, enemies, ex
     return Object.assign(roomState, canBeIdentifiedByName(roomState));
 }
 
-var cave = new Room(
+var 
+cave = new Room(
     "cave",
     "a dark, dank cave.",
     "This cave is drafty, and the walls slimy. There is barely enough light to see.",
@@ -59,8 +60,8 @@ var cave = new Room(
     false,
     [],
     ["north"]
-    );
-var hall = new Room(
+    ),
+hall = new Room(
     "hall",
     "a long stone tunnel.",
     "Hewn stone walls extend north creating a claustrophobic hall.",
@@ -69,8 +70,8 @@ var hall = new Room(
     false,
     [],
     ["north", "east", "south", "west"]
-    );
-var dungeon = new Room(
+    ),
+dungeon = new Room(
     "dungeon",
     "an underground dungeon.",
     "Iron shackles imprison calcified skeletons against the walls. A large chandelier made of antlers casts an deathly pallor across the room.",
@@ -79,8 +80,8 @@ var dungeon = new Room(
     false,
     [troll],
     ["east"]
-    );
-var kitchen = new Room(
+    ),
+kitchen = new Room(
     "kitchen",
     "a warm kitchen.",
     "The smell of cooked food is baked into the walls. The room is warm, and well-lit, thanks to the hearth.",
@@ -89,6 +90,17 @@ var kitchen = new Room(
     false,
     [],
     ["north", "west"]
+    ),
+library = new Room(
+    "library",
+    "a vast library.",
+    "Rows and rows of books adorn shelves and walls. The air is musty, still, and close. Who knows what secrets lie buried here.",
+    [scroll],
+    4,
+    false,
+    [],
+    ["south"]
     );
-var allRooms = [cave, hall, dungeon, kitchen];
+
+var allRooms = [cave, hall, dungeon, kitchen, library];
 

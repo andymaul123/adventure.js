@@ -9,7 +9,7 @@ Command: Look
 */
 window.look = function(optionalObject) {
     if (currentRoom.pitchBlack && playerHasLight == false){
-        $('.message').text("It is too dark to see. Get some light first.");
+        $('.message').html("It is too dark to see. Get some light first.");
     }
     else {
         if(optionalObject) {
@@ -18,39 +18,39 @@ window.look = function(optionalObject) {
                 if (currentRoom.things[i] == optionalObject) {
                     if(currentRoom.things[i].hasOwnProperty('isLocked')) {
                         if(currentRoom.things[i].isLocked === true) {
-                            $('.message').text(currentRoom.things[i].itemDesc + " It is locked.");
+                            $('.message').html(currentRoom.things[i].itemDesc + " It is locked.");
                         }
                         else if(currentRoom.things[i].isLocked === false) {
-                            $('.message').text(currentRoom.things[i].itemDesc + " It is unlocked.");
+                            $('.message').html(currentRoom.things[i].itemDesc + " It is unlocked.");
                         }
                         else {
-                            $('.message').text(currentRoom.things[i].itemDesc);
+                            $('.message').html(currentRoom.things[i].itemDesc);
                         }
                     }
                     else {
-                        $('.message').text(currentRoom.things[i].itemDesc);
+                        $('.message').html(currentRoom.things[i].itemDesc);
                     }
                     isAThingCounter = true;
                 }
             };
             for (var i = 0; i < backpack.length; i++) {
                 if (backpack[i] == optionalObject) {
-                    $('.message').text(backpack[i].itemDesc + " It is in your backpack.");
+                    $('.message').html(backpack[i].itemDesc + " It is in your backpack.");
                     isAThingCounter = true;
                 }
             };
             for (var i = 0; i < currentRoom.enemies.length; i++) {
                 if (currentRoom.enemies[i] == optionalObject) {
-                    $('.message').text(currentRoom.enemies[i].description);
+                    $('.message').html(currentRoom.enemies[i].description);
                     isAThingCounter = true;
                 }
             };
             if (isAThingCounter == false) {
-                $('.message').text("Not much to see here.");
+                $('.message').html("Not much to see here.");
             }
         }
         else {
-            $('.message').text(currentRoom.description);
+            $('.message').html(currentRoom.description);
         }
     }
 }
@@ -65,21 +65,21 @@ window.take = function(optionalObject) {
         for (var i = 0; i < currentRoom.things.length; i++) {
             if (currentRoom.things[i] == optionalObject) {
                 if(currentRoom.things[i].canBeTaken) {
-                    $('.message').text("You take the " + currentRoom.things[i] + ".");
+                    $('.message').html("You take the " + currentRoom.things[i] + ".");
                     backpack.push(currentRoom.things[i]);
                     currentRoom.things.splice(i,1);
                 }
                 else {
-                    $('.message').text("You can't take that.");
+                    $('.message').html("You can't take that.");
                 }
             }
             else {
-                $('.message').text("You can't take that.");
+                $('.message').html("You can't take that.");
             }
         };
     }
     else {
-        $('.message').text("Take what?");
+        $('.message').html("Take what?");
     }
 }
 
@@ -94,10 +94,10 @@ window.inventory = function() {
         for (var i = 0; i < backpack.length; i++) {
             tempBackpack.push(backpack[i]);
         };
-        $('.message').text("You have " + tempBackpack.join(', '));
+        $('.message').html("You have " + tempBackpack.join(', '));
     }
     else {
-        $('.message').text("Your inventory is empty.");
+        $('.message').html("Your inventory is empty.");
     }
 }
 
@@ -127,7 +127,7 @@ window.move = function(requiredObject) {
                 convertedDirection = -1;
                 break;
             default:
-                $('.message').text("That's not a direction.");
+                $('.message').html("That's not a direction.");
                 return
         }
         var moveMath = currentRoom.roomID + convertedDirection;
@@ -140,7 +140,7 @@ window.move = function(requiredObject) {
             }
         }
         if (moveMath == currentRoom.roomID) {
-            $('.message').text("You can't move that way.");
+            $('.message').html("You can't move that way.");
         }
         else {
             var isThereARoom = 0;
@@ -150,27 +150,27 @@ window.move = function(requiredObject) {
                     if(blockedMove === false) {
                         currentRoom = allRooms[i];
                         if (currentRoom.pitchBlack && playerHasLight) {
-                            $('.message').text("You are in " + currentRoom.shortDesc);
+                            $('.message').html("You are in " + currentRoom.shortDesc);
                         }
                         else if (currentRoom.pitchBlack && playerHasLight == false) {
-                            $('.message').text("The room is pitch black.");
+                            $('.message').html("The room is pitch black.");
                         }
                         else {
-                            $('.message').text("You are in " + currentRoom.shortDesc);
+                            $('.message').html("You are in " + currentRoom.shortDesc);
                         }
                     }
                     else if(blockedMove === true){
-                        $('.message').text("That way is currently blocked.");
+                        $('.message').html("That way is currently blocked.");
                     }
                 }
             };
             if(isThereARoom == 0) {
-                $('.message').text("You can't go that way.");
+                $('.message').html("You can't go that way.");
             }
         }
     }
     else {
-        $('.message').text("Move where?");
+        $('.message').html("Move where?");
     }
 }
 /*
@@ -195,11 +195,11 @@ window.use = function(requiredObject) {
         };
 
         if (canUse == false) {
-            $('.message').text("You don't have a " + requiredObject + " to use.");
+            $('.message').html("You don't have a " + requiredObject + " to use.");
         }
     }
     else {
-        $('.message').text("Use what?");
+        $('.message').html("Use what?");
     }
 }
 /*
@@ -215,12 +215,12 @@ window.open = function(requiredObject) {
                     currentRoom.things[i].activate();
                 }
                 else {
-                    $('.message').text("You can't open that.");
+                    $('.message').html("You can't open that.");
                 }
             }
         };
     }
     else {
-        $('.message').text("Open what?");
+        $('.message').html("Open what?");
     }
 }
