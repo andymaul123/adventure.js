@@ -8,6 +8,11 @@ Command: Look
 ============================================================================================
 */
 window.look = function(optionalObject) {
+    if(playerHasLight === false) {
+        if(torchIsLit && $.inArray(torch, backpack) >= 0) {
+            playerHasLight = true;
+        }
+    }
     if (currentRoom.pitchBlack && playerHasLight == false){
         $('.message').html("It is too dark to see. Get some light first.");
     }
@@ -107,11 +112,6 @@ Command: Move
 ============================================================================================
 */
 window.move = function(requiredObject) {
-    if(playerHasLight === false) {
-        if(torchIsLit && $.inArray(torch, backpack) >= 0) {
-            playerHasLight = true;
-        }
-    }
     if(requiredObject) {
         var convertedDirection;
         switch(requiredObject) {
