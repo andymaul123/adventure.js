@@ -67,7 +67,7 @@ hall = new Room(
     "Hewn stone walls extend north creating a claustrophobic hall.",
     [doubleDoors, dungeonPass, kitchenDoor],
     7,
-    false,
+    true,
     [],
     ["north", "east", "south", "west"]
     ),

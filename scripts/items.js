@@ -66,7 +66,7 @@ var torch = new Item(
 );
 
 torch.activate = function() {
-    playerHasLight = true;
+    torchIsLit = true;
     $('.message').html("With a few sparks from your flint and steel the torch catches and roars to life.");
 }
 /*
@@ -210,7 +210,6 @@ var mapPicture =
 "|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|" + "<br>" + 
 "--------------------";
 
-console.log(mapPicture);
 scroll.activate = function() {
     $('.message').html(mapPicture);
 }

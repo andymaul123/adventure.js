@@ -107,6 +107,11 @@ Command: Move
 ============================================================================================
 */
 window.move = function(requiredObject) {
+    if(playerHasLight === false) {
+        if(torchIsLit && $.inArray(torch, backpack) >= 0) {
+            playerHasLight = true;
+        }
+    }
     if(requiredObject) {
         var convertedDirection;
         switch(requiredObject) {
