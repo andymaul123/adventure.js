@@ -66,7 +66,15 @@ Command: Take
 ============================================================================================
 */
 window.take = function(optionalObject) {
-    if(optionalObject) {
+    var checkMonsters = 0;
+    if(currentRoom.enemies.length) {
+        for (var i = 0; i < currentRoom.enemies.length; i++) {
+            if(currentRoom.enemies[i].monsterDefense >= 1) {
+                checkMonsters++;
+            }
+        }
+    }
+    if(optionalObject && checkMonsters === 0) {
         for (var i = 0; i < currentRoom.things.length; i++) {
             if (currentRoom.things[i] == optionalObject) {
                 if(currentRoom.things[i].canBeTaken) {
@@ -82,6 +90,13 @@ window.take = function(optionalObject) {
                 $('.message').html("You can't take that.");
             }
         };
+    }
+    else if(optionalObject && checkMonsters >= 1) {
+        for (var i = 0; i < currentRoom.enemies.length; i++) {
+            $('.message').html('The ' + currentRoom.enemies[i].name + ' attacks you!');
+            healthPoints = healthPoints - currentRoom.enemies[i].monsterAttack;
+            console.log('Player health is ' + healthPoints);
+        }
     }
     else {
         $('.message').html("Take what?");

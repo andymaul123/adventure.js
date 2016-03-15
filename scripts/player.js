@@ -1,3 +1,4 @@
-var backpack = [];
-var playerHasLight = false;
-var torchIsLit = false;
+var backpack = [],
+ 	playerHasLight = false,
+ 	torchIsLit = false,
+ 	healthPoints = 10;
