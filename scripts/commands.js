@@ -1,7 +1,16 @@
 "use strict";
 
 var commandArray = ["look", "move", "take", "inventory", "use", "attack", "open"];
-
+window.checkMonsters = function(){
+    monstersAliveInRoom = 0;
+    if(currentRoom.enemies.length) {
+        for (var i = 0; i < currentRoom.enemies.length; i++) {
+            if(currentRoom.enemies[i].monsterDefense >= 1) {
+                monstersAliveInRoom++;
+            }
+        }
+    }
+}
 /*
 ============================================================================================
 Command: Look
@@ -66,15 +75,8 @@ Command: Take
 ============================================================================================
 */
 window.take = function(optionalObject) {
-    var checkMonsters = 0;
-    if(currentRoom.enemies.length) {
-        for (var i = 0; i < currentRoom.enemies.length; i++) {
-            if(currentRoom.enemies[i].monsterDefense >= 1) {
-                checkMonsters++;
-            }
-        }
-    }
-    if(optionalObject && checkMonsters === 0) {
+    checkMonsters();
+    if(optionalObject && monstersAliveInRoom === 0) {
         for (var i = 0; i < currentRoom.things.length; i++) {
             if (currentRoom.things[i] == optionalObject) {
                 if(currentRoom.things[i].canBeTaken) {
@@ -91,7 +93,7 @@ window.take = function(optionalObject) {
             }
         };
     }
-    else if(optionalObject && checkMonsters >= 1) {
+    else if(optionalObject && monstersAliveInRoom >= 1) {
         for (var i = 0; i < currentRoom.enemies.length; i++) {
             $('.message').html('The ' + currentRoom.enemies[i].name + ' attacks you!');
             healthPoints = healthPoints - currentRoom.enemies[i].monsterAttack;
@@ -249,3 +251,53 @@ window.open = function(requiredObject) {
         $('.message').html("Open what?");
     }
 }
+/*
+============================================================================================
+Command: Attack
+============================================================================================
+*/
+window.attack = function(optionalObject) { // WIP
+    if (optionalObject && monstersAliveInRoom >= 1 ) {
+        if($.inArray(sword, backpack)) {
+            for (var i = 0; i < currentRoom.enemies.length; i++) {
+                if(currentRoom.enemies[i].monsterDefense > 0) {
+                    currentRoom.enemies[i].monsterDefense -= 5;
+                     if(currentRoom.enemies[i].monsterDefense <= 0) {
+                        $('.message').html("With a final swing the " + currentRoom.enemies[i] + " falls to the floor, dead.");
+                     }
+                     else {
+                        $('.message').html("You swing your sword at the " + currentRoom.enemies[i] + "!");
+                     }
+                }
+                else {
+                    $('.message').html("The " + currentRoom.enemies[i] + " is already dead.");
+                }
+            }
+        }
+        else if($.inArray(knife, backpack)) {
+            weaponUsed = knife;
+        }
+        else {
+            $('.message').html('You don\'t have a weapon to attack with!');
+            return;
+        }
+    }
+    else {
+        $('.message').html("Open what?");
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

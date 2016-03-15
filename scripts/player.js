@@ -1,4 +1,5 @@
 var backpack = [],
  	playerHasLight = false,
  	torchIsLit = false,
- 	healthPoints = 10;
+ 	healthPoints = 10,
+ 	monstersAliveInRoom = 0;
