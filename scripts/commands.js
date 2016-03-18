@@ -256,34 +256,72 @@ window.open = function(requiredObject) {
 Command: Attack
 ============================================================================================
 */
-window.attack = function(optionalObject) { // WIP
-    if (optionalObject && monstersAliveInRoom >= 1 ) {
-        if($.inArray(sword, backpack)) {
-            for (var i = 0; i < currentRoom.enemies.length; i++) {
-                if(currentRoom.enemies[i].monsterDefense > 0) {
-                    currentRoom.enemies[i].monsterDefense -= 5;
-                     if(currentRoom.enemies[i].monsterDefense <= 0) {
-                        $('.message').html("With a final swing the " + currentRoom.enemies[i] + " falls to the floor, dead.");
+window.attack = function(optionalObject) {
+    checkMonsters();
+    var isAMonster =  false;
+    var attackTarget;
+    if(optionalObject) {
+        for (var i = 0; i < currentRoom.enemies.length; i++) {
+            if(currentRoom.enemies[i] == optionalObject) {
+                isAMonster = true;
+                attackTarget = currentRoom.enemies[i];
+            }
+        }
+        if(isAMonster) {
+            if($.inArray(sword, backpack) >= 0) {
+                if(attackTarget.monsterDefense > 0) {
+                    if(attackTarget.monsterDefense > 0) {
+                        attackTarget.monsterDefense -= 5;
+                        console.log(attackTarget.monsterDefense);
+                         if(attackTarget.monsterDefense <= 0) {
+                            $('.message').html("With a final swing the " + attackTarget + " falls to the floor, dead.");
+                         }
+                         else {
+                            $('.message').html("You swing your sword at the " + attackTarget + "!");
+                         }
+                    }
+                    else {
+                        $('.message').html("The " + attackTarget + " is already dead.");
+                    }
+                }
+            }
+            else if($.inArray(knife, backpack) >= 0) {
+                if(attackTarget.monsterDefense > 0) {
+                    attackTarget.monsterDefense -= 3.5;
+                    console.log(attackTarget.monsterDefense);
+                     if(attackTarget.monsterDefense <= 0) {
+                        $('.message').html("With a vicious stab the " + attackTarget + " falls to the floor, dead.");
                      }
                      else {
-                        $('.message').html("You swing your sword at the " + currentRoom.enemies[i] + "!");
+                        $('.message').html("You stab the " + attackTarget + " with your knife!");
                      }
                 }
                 else {
-                    $('.message').html("The " + currentRoom.enemies[i] + " is already dead.");
+                    $('.message').html("The " + attackTarget + " is already dead!");
+                }
+            }
+            else {
+                if(attackTarget.monsterDefense > 0) {
+                    attackTarget.monsterDefense -= 2;
+                    console.log(attackTarget.monsterDefense);
+                     if(attackTarget.monsterDefense <= 0) {
+                        $('.message').html("A solid right hook send the " + attackTarget + " to the floor, dead.");
+                     }
+                     else {
+                        $('.message').html("You pummel the " + attackTarget + " with your fists!");
+                     }
+                }
+                else {
+                    $('.message').html("The " + attackTarget + " is already dead!");
                 }
             }
         }
-        else if($.inArray(knife, backpack)) {
-            weaponUsed = knife;
-        }
         else {
-            $('.message').html('You don\'t have a weapon to attack with!');
-            return;
+            $('.message').html("Why would you want to attack the " + optionalObject + "?");
         }
     }
     else {
-        $('.message').html("Open what?");
+        $('.message').html("Attack what?");
     }
 }
 
