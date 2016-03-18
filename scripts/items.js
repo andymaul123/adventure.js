@@ -238,6 +238,9 @@ knob.activate = function() {
         library.things.push(vaultPass);
         $('.message').html("You give the knob a twist. The room shudders and the sounds of mechanical parts grinding breaks the silence. The cacophony lasts for only a few seconds.");
     }
+    else {
+        $('.message').html("It's stuck and won't turn back.");
+    }
 }
 var vaultPass = new Door(
     "passage",
