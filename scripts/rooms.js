@@ -100,6 +100,16 @@ library = new Room(
     false,
     [],
     ["south"]
+    ),
+vault = new Room(
+    "vault",
+    "a secure and hidden vault.",
+    "You find yourself in what appears to be a vault, though it's now mostly empty.",
+    [],
+    3,
+    true,
+    [],
+    ["east", "south"]
     );
 
 var allRooms = [cave, hall, dungeon, kitchen, library];

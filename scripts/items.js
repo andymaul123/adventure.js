@@ -232,5 +232,24 @@ var knob = new Item(
     false
 );
 knob.activate = function() {
-    $('.message').html("You give the knob a twist. The room shudders and the sounds of mechanical parts grinding breaks the silence. The cacophony lasts for only a few seconds.");
+    if($.inArray("west", currentRoom.exits) == -1) {
+        library.exits.push("west");
+        allRooms.push(vault);
+        library.things.push(vaultPass);
+        $('.message').html("You give the knob a twist. The room shudders and the sounds of mechanical parts grinding breaks the silence. The cacophony lasts for only a few seconds.");
+    }
 }
+var vaultPass = new Door(
+    "passage",
+    "A hidden passage leading west.",
+    "A new passage has opened on the western-most wall.",
+    null,
+    true,
+    null
+);
+
+
+
+
+
+
