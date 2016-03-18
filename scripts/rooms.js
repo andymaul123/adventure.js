@@ -54,7 +54,7 @@ var
 cave = new Room(
     "cave",
     "a dark, dank cave.",
-    "This cave is drafty, and the walls slimy. There is barely enough light to see.",
+    "This cave is drafty, and the walls slimy.",
     [pebble, torch],
     11,
     false,
@@ -65,7 +65,7 @@ hall = new Room(
     "hall",
     "a long stone tunnel.",
     "Hewn stone walls extend north creating a claustrophobic hall.",
-    [doubleDoors, dungeonPass, kitchenDoor],
+    [portcullis, dungeonPass, kitchenDoor],
     7,
     true,
     [],
@@ -94,8 +94,8 @@ kitchen = new Room(
 library = new Room(
     "library",
     "a vast library.",
-    "Rows and rows of books adorn shelves and walls. The air is musty, still, and close. Who knows what secrets lie buried here.",
-    [scroll],
+    "The air is musty, still, and close.",
+    [books,scroll, desk, knob],
     4,
     false,
     [],

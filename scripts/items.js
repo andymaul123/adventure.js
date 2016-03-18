@@ -119,10 +119,10 @@ key.activate = function() {
     }
 }
 
-var doubleDoors = new Door(
-    "double-doors",
-    "A set of double-doors.",
-    "It culminates in a set of massive double-doors made from wood and reinforced with iron.",
+var portcullis = new Door(
+    "portcullis",
+    "A foreboding gate of iron bars. It appears that it can be opened from the other side.",
+    "It culminates in a portcullis made of iron beams.",
     true,
     false,
     "north"
@@ -212,4 +212,25 @@ var mapPicture =
 
 scroll.activate = function() {
     $('.message').html(mapPicture);
+}
+var books = new Item(
+    "books",
+    "There are so many books in here, it'd take you years to look through them.",
+    "Rows and rows of books adorn the shelves. ",
+    false
+);
+var desk = new Item(
+    "desk",
+    "An old wooden desk. You feel a strange knob on the underside of it.",
+    "",
+    false
+);
+var knob = new Item(
+    "knob",
+    "A strange wooden knob. I wonder what it does?",
+    "",
+    false
+);
+knob.activate = function() {
+    $('.message').html("You give the knob a twist. The room shudders and the sounds of mechanical parts grinding breaks the silence. The cacophony lasts for only a few seconds.");
 }
